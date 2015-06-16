@@ -17,11 +17,14 @@ import com.capgemini.poc.microservice2.controller.Receiver;
 public class Microservice2Application {
 
 	final static String queueName = "microservices_arch";
-	
-    public static void main(String[] args) {
-        SpringApplication.run(Microservice2Application.class, args);
+	  
+	public static void main(String[] args) {
+        SpringApplication.run(new Object[]{
+				Microservice2Application.class,
+				MetricsConfiguration.class
+        }, args);
     }
-    
+	
 	@Bean
 	Queue queue() {
 		return new Queue(queueName, false);
