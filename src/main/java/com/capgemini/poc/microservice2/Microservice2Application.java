@@ -21,7 +21,7 @@ public class Microservice2Application {
     public static void main(String[] args) {
         SpringApplication.run(Microservice2Application.class, args);
     }
-
+    
 	@Bean
 	Queue queue() {
 		return new Queue(queueName, false);
