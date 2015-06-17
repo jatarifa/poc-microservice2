@@ -4,6 +4,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -16,13 +17,16 @@ public class EmailService
 	@Autowired
     private JavaMailSender mailSender;
 	
-	public void sendEmail(String email_to, String email_from, String asunto, String contenido)
+    @Value("${mail.from}")
+    private String from;
+    
+	public void sendEmail(String email_to, String asunto, String contenido)
 	{
 		try
 		{
 			final MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			helper.setFrom(email_from);
+			helper.setFrom(from);
 			helper.setSubject(asunto);
 			helper.setTo(email_to);
 			helper.setText(contenido, true);
