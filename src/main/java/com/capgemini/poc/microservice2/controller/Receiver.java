@@ -29,10 +29,10 @@ public class Receiver
 			Event ev = Event.fromJSON((String)message);
 			if(ev.getEvent_id().equalsIgnoreCase("passwordGeneration"))
 			{
-				String msg = "Buenos dias, se ha solicitado una clave nueva : " + ev.getData().get("password") + ",\n" +
-							 "con indice de clave : " + ev.getData().get("key") + "\n";
-				
-				email.sendEmail(ev.getData().get("email").toString(), from, "Cambio de password", msg);
+				String to = (String) ev.getData().get("email");
+				String subject = (String) ev.getData().get("subject");
+				String content = (String) ev.getData().get("content");
+				email.sendEmail(to, from, subject, content);
 			}
 		}
 	}
